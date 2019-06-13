@@ -5,20 +5,35 @@ using UnityEngine;
 public class YMovingPlat : MonoBehaviour
 {
 
-    public float speed = 0.02f, changeDirection = -1;
+
+    public float speed = 0.05f, changeDirection = -1;
     Vector3 Move;
+
+    public PauseMenu pausep;
 
     // Use this for initialization
     void Start()
     {
         Move = this.transform.position;
+
+        pausep = GameObject.FindGameObjectWithTag("MainCamera").GetComponentInParent<PauseMenu>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move.y += speed;
-        this.transform.position = Move;
+        if (pausep.pause)
+        {
+            this.transform.position = this.transform.position;
+
+        }
+        if (pausep.pause == false)
+        {
+            Move.y += speed;
+            this.transform.position = Move;
+        }
+
+
 
     }
 
@@ -28,5 +43,10 @@ public class YMovingPlat : MonoBehaviour
         {
             speed *= changeDirection;
         }
+
+
+
     }
+
+
 }
